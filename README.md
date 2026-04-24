@@ -1,20 +1,46 @@
-<<<<<<< HEAD
-# React + Vite
+## 🌐 Madhushree Mandokar — Personal Portfolio
+**A modern, responsive personal portfolio website built to showcase my projects, skills, and certifications as a B.Tech CSE (AI) student.
+It features smooth animations, dark/light mode support (respecting system preferences), and a clean developer-focused UI to present my work effectively.**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🔗 Live Demo
+👉 https://madhu-portfolio-rho.vercel.app/
 
-Currently, two official plugins are available:
+## 📂 Sections
+## 👤 About
+A quick introduction with profile photo, background, resume link, and contact details.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tech Stack
+Languages, frameworks, and tools grouped by category:
+- Languages
+- Frameworks
+- Tools & Platforms
 
-## React Compiler
+## 💼 Projects
+- Filterable project grid including:
+- AI/ML Projects 🤖
+- Web Development 🌐
+- Each project includes GitHub link and live demo.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📜 Certificates
+Verified certifications from IBM, IEEE, SoloLearn, and others — clickable to view details.
+📬 Contact
+Direct email access and social profiles:
+- LinkedIn
+- GitHub
+- LeetCode
+- HackerRank
+- Codolio
+  
+## 🛠️ Built With
+- ⚛️ React 19 + Vite
+- 🎨 Tailwind CSS v4
+- 🎬 Framer Motion (animations)
+- 🎯 Lucide React Icons
+- 🚀 Getting Started
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
-# madhu-portfolio
->>>>>>> fdfa621ac3aeef8fa06b6ca27c0f28314bf16d2b
+## Clone the repository and run locally:
+- npm install
+- npm run dev
+  
+## ⭐ About This Project
+This portfolio is designed to be fully responsive, fast, and visually modern. It reflects my journey as a developer and will evolve as I build more projects in AI/ML and Web Development.

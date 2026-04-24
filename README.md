@@ -25,7 +25,7 @@ It is fully responsive, fast-loading, and optimized for a smooth user experience
 - 🧩 Modular React component structure
 - 🚀 Optimized build using Vite
 
-##👤 About
+## 👤 About
 - Professional introduction and background
 - Profile image and personal branding
 - Resume access and contact links

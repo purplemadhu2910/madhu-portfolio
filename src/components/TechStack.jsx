@@ -16,7 +16,7 @@ const categories = [
       { name: 'NumPy', icon: '🔢' },
       { name: 'Pandas', icon: '🐼' },
       { name: 'Scikit-learn', icon: '🤖' },
-      { name: 'Seabord', icon: '📊' },
+      { name: 'Seabordn', icon: '📊' },
     ],
   },
   {

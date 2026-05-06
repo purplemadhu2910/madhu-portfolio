@@ -9,6 +9,7 @@ const certificates = [
   { id: 5, title: 'Python Developer', issuer: 'SoloLearn', date: 'Feb 2025', color: 'from-blue-400 to-cyan-400', link: 'https://drive.google.com/open?id=1zM0bFka5l-KeWmHw7YfBbBodOYOGitUJ' },
   { id: 6, title: 'SQL and Relational Databases', issuer: 'IBM SkillsBuild', date: 'Oct 2025', color: 'from-blue-500 to-teal-500', link: 'https://drive.google.com/open?id=15nHOdxvPz7xXLTyLgP-hcJYREE8KMxj0' },
   { id: 7, title: 'MATLAB for AI', issuer: 'IEEE', date: 'Sept 2024', color: 'from-orange-400 to-amber-400', link: 'https://drive.google.com/open?id=1DawKnAyW3dIWhzGA-RG5vAU96IkiB44m' },
+  { id: 8, title: 'Dynamic Programming Camp', issuer: 'AlgoUniversity', date: 'April 2026', color: 'from-pink-400 to-amber-400', link: 'https://drive.google.com/file/d/15bazG0qrTdnRLzlcLGD2E7QIQmu_BL2j/view?usp=sharing' },
 ];
 
 export default function Certificates() {

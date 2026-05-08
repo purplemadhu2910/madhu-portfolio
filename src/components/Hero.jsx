@@ -49,7 +49,7 @@ export default function Hero() {
               Get in Touch
             </a>
             <a
-              href="/madhushree-mandokar-resume.pdf"
+              href="/madhushree_mandokar_resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-full border border-gray-300 dark:border-gray-700 font-semibold hover:border-violet-400 hover:text-violet-500 transition-all duration-300 flex items-center gap-2"

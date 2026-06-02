@@ -36,13 +36,18 @@ export default function Certificates() {
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-violet-600/5 rounded-full blur-[120px] pointer-events-none" />
 
       <AnimatedSection className="text-center mb-16">
-        <span className="text-xs font-semibold tracking-widest uppercase text-violet-400 mb-3 block">Credentials</span>
-        <h2 className="text-4xl md:text-5xl font-bold text-[#F3F4F6] mb-4 heading-glow">Certificates</h2>
-        <span className="section-line mb-6 block" />
-        <p className="text-[#9CA3AF] max-w-lg mx-auto text-sm leading-relaxed">
+        <span className="section-eyebrow">Credentials</span>
+        <h2 className="section-title">Certificates</h2>
+        <div className="section-divider mb-5"><span /></div>
+        <p className="text-sm leading-[1.8] max-w-lg mx-auto" style={{ color: '#8b95a5' }}>
           Verified credentials across AI, programming, web development, and competitive programming
           from globally recognized platforms.
         </p>
+        {/* Total count badge */}
+        <div className="inline-flex items-center gap-2 mt-4 px-4 py-1.5 rounded-full" style={{ background: 'rgba(124,58,237,0.1)', border: '1px solid rgba(124,58,237,0.25)' }}>
+          <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
+          <span className="text-xs font-semibold" style={{ color: '#a78bfa' }}>{certificates.length} Certificates Earned</span>
+        </div>
       </AnimatedSection>
 
       {/* Filter tabs */}

@@ -15,17 +15,24 @@ export default function BackToTop() {
     <AnimatePresence>
       {visible && (
         <motion.button
-          initial={{ opacity: 0, scale: 0.8, y: 10 }}
+          initial={{ opacity: 0, scale: 0.6, y: 16 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.8, y: 10 }}
-          transition={{ duration: 0.25 }}
-          whileHover={{ scale: 1.1, boxShadow: '0 0 24px rgba(124,58,237,0.5)' }}
-          whileTap={{ scale: 0.95 }}
+          exit={{ opacity: 0, scale: 0.6, y: 16 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          whileHover={{ scale: 1.12 }}
+          whileTap={{ scale: 0.92 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Back to top"
-          className="fixed bottom-8 right-8 z-40 w-11 h-11 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-violet-500/30"
+          className="fixed bottom-8 right-8 z-40 w-12 h-12 rounded-xl flex items-center justify-center text-white"
+          style={{
+            background: 'linear-gradient(135deg, #7c3aed, #6366f1)',
+            boxShadow: '0 0 20px rgba(124,58,237,0.5), 0 4px 24px rgba(124,58,237,0.3)',
+          }}
         >
-          <FiArrowUp size={18} />
+          {/* Pulse ring */}
+          <span className="absolute inset-0 rounded-xl animate-ping opacity-30"
+            style={{ background: 'linear-gradient(135deg, #7c3aed, #6366f1)' }} />
+          <FiArrowUp size={18} className="relative z-10" />
         </motion.button>
       )}
     </AnimatePresence>

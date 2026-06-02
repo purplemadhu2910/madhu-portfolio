@@ -1,6 +1,8 @@
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import AnimatedSection from './AnimatedSection';
-import { FiGithub, FiLinkedin, FiMail, FiArrowRight, FiPhone } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiMail, FiArrowRight, FiPhone, FiSend, FiCheck, FiAlertCircle } from 'react-icons/fi';
 import { SiLeetcode, SiHackerrank } from 'react-icons/si';
 
 const socials = [
@@ -43,6 +45,31 @@ const socials = [
 ];
 
 export default function Contact() {
+  const formRef = useRef();
+  const [status, setStatus] = useState('idle'); // idle | sending | success | error
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
+
+  const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setStatus('sending');
+    try {
+      await emailjs.sendForm(
+        'YOUR_SERVICE_ID',
+        'YOUR_TEMPLATE_ID',
+        formRef.current,
+        'YOUR_PUBLIC_KEY'
+      );
+      setStatus('success');
+      setForm({ name: '', email: '', message: '' });
+      setTimeout(() => setStatus('idle'), 4000);
+    } catch {
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 4000);
+    }
+  };
+
   return (
     <section id="contact" className="section-padding relative overflow-hidden">
       {/* Aurora background */}
@@ -114,6 +141,58 @@ export default function Contact() {
               <FiArrowRight size={16} className="relative ml-auto transition-all duration-300" style={{ color: '#4b5563' }} />
             </motion.a>
           </div>
+        </AnimatedSection>
+
+        {/* Contact form */}
+        <AnimatedSection direction="scale" delay={0.2} className="w-full">
+          <form ref={formRef} onSubmit={handleSubmit}
+            className="rounded-2xl p-6 space-y-4"
+            style={{ background: 'rgba(13,17,27,0.7)', border: '1px solid rgba(255,255,255,0.07)' }}
+          >
+            <div className="absolute top-0 left-0 right-0 h-px rounded-t-2xl" style={{ background: 'linear-gradient(90deg, transparent, rgba(124,58,237,0.5), transparent)' }} />
+            <p className="text-sm font-semibold mb-2" style={{ color: '#f0f2f5' }}>Send a message</p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-medium mb-1.5 block" style={{ color: '#8b95a5' }}>Name</label>
+                <input name="name" value={form.name} onChange={handleChange} required placeholder="Your name"
+                  className="w-full px-4 py-2.5 rounded-xl text-sm outline-none transition-all duration-200"
+                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#f0f2f5' }}
+                  onFocus={e => e.target.style.borderColor = 'rgba(124,58,237,0.5)'}
+                  onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'}
+                />
+              </div>
+              <div>
+                <label className="text-xs font-medium mb-1.5 block" style={{ color: '#8b95a5' }}>Email</label>
+                <input name="email" value={form.email} onChange={handleChange} required type="email" placeholder="your@email.com"
+                  className="w-full px-4 py-2.5 rounded-xl text-sm outline-none transition-all duration-200"
+                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#f0f2f5' }}
+                  onFocus={e => e.target.style.borderColor = 'rgba(124,58,237,0.5)'}
+                  onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'}
+                />
+              </div>
+            </div>
+            <div>
+              <label className="text-xs font-medium mb-1.5 block" style={{ color: '#8b95a5' }}>Message</label>
+              <textarea name="message" value={form.message} onChange={handleChange} required rows={4} placeholder="What's on your mind?"
+                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none resize-none transition-all duration-200"
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#f0f2f5' }}
+                onFocus={e => e.target.style.borderColor = 'rgba(124,58,237,0.5)'}
+                onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'}
+              />
+            </div>
+            <motion.button type="submit" disabled={status === 'sending'}
+              whileHover={{ scale: 1.02, boxShadow: '0 0 30px rgba(124,58,237,0.4)' }}
+              whileTap={{ scale: 0.97 }}
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold text-white transition-all duration-300 disabled:opacity-60"
+              style={{ background: 'linear-gradient(135deg, #7c3aed, #6366f1)' }}
+            >
+              {status === 'sending' && <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />}
+              {status === 'success' && <FiCheck size={15} />}
+              {status === 'error'   && <FiAlertCircle size={15} />}
+              {status === 'idle'    && <FiSend size={15} />}
+              {status === 'sending' ? 'Sending…' : status === 'success' ? 'Message Sent!' : status === 'error' ? 'Failed — try email' : 'Send Message'}
+            </motion.button>
+          </form>
         </AnimatedSection>
 
         {/* Divider */}

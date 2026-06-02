@@ -8,7 +8,7 @@ const stats = [
   { value: '10+',  label: 'Projects Built',    icon: HiOutlineCode,         gradient: 'from-violet-500 to-indigo-500', shadow: 'rgba(124,58,237,0.3)' },
   { value: '10+',  label: 'Certifications',    icon: HiOutlineAcademicCap,  gradient: 'from-cyan-500 to-teal-500',    shadow: 'rgba(34,211,238,0.3)' },
   { value: '100+', label: 'LeetCode Problems', icon: SiLeetcode,             gradient: 'from-orange-500 to-amber-500', shadow: 'rgba(249,115,22,0.3)' },
-  { value: '2027', label: 'Graduating',        icon: HiOutlineLightBulb,     gradient: 'from-pink-500 to-rose-500',    shadow: 'rgba(236,72,153,0.3)' },
+  { value: '8.5',  label: 'CGPA',              icon: HiOutlineLightBulb,     gradient: 'from-pink-500 to-rose-500',    shadow: 'rgba(236,72,153,0.3)', noPlus: true },
 ];
 
 const highlights = [
@@ -20,23 +20,25 @@ const highlights = [
 function useCountUp(target, duration = 1500) {
   const [count, setCount] = useState(0);
   const started = useRef(false);
-  const numeric = parseInt(target);
+  const numeric = parseFloat(target);
   useEffect(() => {
     if (started.current || isNaN(numeric)) return;
     started.current = true;
     const t0 = performance.now();
     const tick = now => {
       const p = Math.min((now - t0) / duration, 1);
-      setCount(Math.floor((1 - Math.pow(1 - p, 3)) * numeric));
+      const val = (1 - Math.pow(1 - p, 3)) * numeric;
+      setCount(Number.isInteger(numeric) ? Math.floor(val) : Math.round(val * 10) / 10);
       if (p < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
   }, [numeric, duration]);
-  return isNaN(numeric) ? target : `${count}+`;
+  return isNaN(numeric) ? target : numeric;
 }
 
 function StatCard({ s }) {
-  const display = useCountUp(s.value);
+  const raw = useCountUp(s.value);
+  const display = s.noPlus ? raw : `${raw}+`;
   return (
     <motion.div whileHover={{ y: -8, scale: 1.02 }}
       className="relative rounded-2xl p-6 cursor-default overflow-hidden group transition-all duration-300"

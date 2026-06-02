@@ -1,109 +1,154 @@
 import { motion } from 'framer-motion';
-import { Mail, Link2, GitBranch, Code2, BookOpen, LayoutGrid } from 'lucide-react';
+import AnimatedSection from './AnimatedSection';
+import { FiGithub, FiLinkedin, FiMail, FiArrowRight, FiPhone } from 'react-icons/fi';
+import { SiLeetcode, SiHackerrank } from 'react-icons/si';
 
 const socials = [
   {
-    label: 'LinkedIn',
-    icon: Link2,
+    label: 'LinkedIn', icon: FiLinkedin,
     href: 'https://www.linkedin.com/in/madhushree-m-1544a42b5/',
-    color: 'hover:text-blue-500 hover:border-blue-400',
     desc: 'Connect professionally',
+    gradient: 'from-blue-600/20 to-blue-500/5',
+    border: 'hover:border-blue-500/40',
+    icon_color: 'group-hover:text-blue-400',
+    glow: 'hover:shadow-blue-500/15',
   },
   {
-    label: 'GitHub',
-    icon: GitBranch,
+    label: 'GitHub', icon: FiGithub,
     href: 'https://github.com/purplemadhu2910',
-    color: 'hover:text-gray-900 dark:hover:text-white hover:border-gray-400',
-    desc: 'See my code',
+    desc: 'Explore my code',
+    gradient: 'from-white/10 to-white/2',
+    border: 'hover:border-white/25',
+    icon_color: 'group-hover:text-white',
+    glow: 'hover:shadow-white/5',
   },
   {
-    label: 'LeetCode',
-    icon: Code2,
+    label: 'LeetCode', icon: SiLeetcode,
     href: 'https://leetcode.com/u/purplemadhu2910/',
-    color: 'hover:text-orange-500 hover:border-orange-400',
     desc: 'Problem solving',
+    gradient: 'from-orange-600/20 to-orange-500/5',
+    border: 'hover:border-orange-500/40',
+    icon_color: 'group-hover:text-orange-400',
+    glow: 'hover:shadow-orange-500/15',
   },
   {
-    label: 'HackerRank',
-    icon: BookOpen,
+    label: 'HackerRank', icon: SiHackerrank,
     href: 'https://www.hackerrank.com/madhu_mandokar29',
-    color: 'hover:text-green-500 hover:border-green-400',
     desc: 'Coding challenges',
-  },
-  {
-    label: 'Codolio',
-    icon: LayoutGrid,
-    href: 'https://codolio.com/profile/madhu2910',
-    color: 'hover:text-violet-500 hover:border-violet-400',
-    desc: 'Dev portfolio',
+    gradient: 'from-emerald-600/20 to-emerald-500/5',
+    border: 'hover:border-emerald-500/40',
+    icon_color: 'group-hover:text-emerald-400',
+    glow: 'hover:shadow-emerald-500/15',
   },
 ];
 
 export default function Contact() {
   return (
-    <section id="contact" className="section-padding bg-gray-50 dark:bg-gray-900/50">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="text-center mb-14"
-      >
-        <h2 className="text-4xl font-bold mb-3">Get In Touch</h2>
-        <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto">
-          I'm always open to new opportunities, collaborations, or just a friendly chat. Feel free to reach out!
+    <section id="contact" className="section-padding relative overflow-hidden">
+      {/* Aurora background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="animate-aurora absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-violet-600/8 rounded-full blur-[140px]" />
+        <div className="animate-aurora absolute top-0 right-1/4 w-96 h-96 bg-cyan-600/7 rounded-full blur-[120px]" style={{ animationDelay: '-4s' }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-600/2 to-transparent" />
+      </div>
+
+      <AnimatedSection className="text-center mb-16">
+        <span className="section-eyebrow">Let's Talk</span>
+        <h2 className="section-title">Get In Touch</h2>
+        <div className="section-divider mb-6"><span /></div>
+        <p className="text-sm leading-[1.8] max-w-md mx-auto" style={{ color: '#8b95a5' }}>
+          Open to new opportunities, collaborations, or just a friendly chat about AI and tech.
         </p>
-      </motion.div>
+      </AnimatedSection>
 
-      <div className="flex flex-col items-center gap-10">
-        {/* Email CTA */}
-        <motion.a
-          href="mailto:madhu.mandokar29@gmail.com"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          whileHover={{ scale: 1.05 }}
-          className="flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-violet-500 to-indigo-500 text-white font-semibold text-lg shadow-lg hover:shadow-violet-300 dark:hover:shadow-violet-900 transition-all duration-300"
-        >
-          <Mail size={22} />
-          madhu.mandokar29@gmail.com
-        </motion.a>
+      <div className="flex flex-col items-center gap-10 relative z-10 max-w-2xl mx-auto">
+        {/* Availability badge */}
+        <AnimatedSection direction="scale">
+          <div className="flex items-center gap-2 px-4 py-2 rounded-full glass-light border border-emerald-500/20 shadow-lg shadow-emerald-500/5">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+            <span className="text-xs font-medium text-emerald-400 tracking-wider">Available for opportunities</span>
+          </div>
+        </AnimatedSection>
 
-        {/* Social Cards */}
-        <div className="flex flex-wrap justify-center gap-5">
-          {socials.map((s, i) => (
+        {/* Contact cards row — email + phone */}
+        <AnimatedSection direction="scale" delay={0.1} className="w-full">
+          <div className="grid sm:grid-cols-2 gap-4">
+            {/* Email */}
             <motion.a
-              key={s.label}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              whileHover={{ y: -5 }}
-              className={`flex flex-col items-center gap-2 px-8 py-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 transition-all duration-200 ${s.color} group`}
+              href="mailto:madhu.mandokar29@gmail.com"
+              whileHover={{ scale: 1.03, boxShadow: '0 0 60px rgba(124,58,237,0.4)' }}
+              whileTap={{ scale: 0.97 }}
+              className="group relative flex items-center gap-4 px-6 py-5 rounded-2xl text-white overflow-hidden"
+              style={{ background: 'linear-gradient(135deg, #7c3aed, #6366f1)', boxShadow: '0 8px 32px rgba(124,58,237,0.25)' }}
             >
-              <s.icon size={28} className="transition-colors duration-200" />
-              <span className="font-semibold text-sm">{s.label}</span>
-              <span className="text-xs text-gray-400 dark:text-gray-500">{s.desc}</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/8 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <div className="relative w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.15)' }}>
+                <FiMail size={18} />
+              </div>
+              <div className="relative text-left">
+                <p className="text-[10px] uppercase tracking-wider mb-0.5" style={{ color: 'rgba(255,255,255,0.55)' }}>Email</p>
+                <p className="text-sm font-semibold tracking-tight">madhu.mandokar29@gmail.com</p>
+              </div>
+              <FiArrowRight size={16} className="relative ml-auto opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
             </motion.a>
+
+            {/* Phone */}
+            <motion.a
+              href="tel:+919870099043"
+              whileHover={{ scale: 1.03, boxShadow: '0 0 60px rgba(34,211,238,0.3)' }}
+              whileTap={{ scale: 0.97 }}
+              className="group relative flex items-center gap-4 px-6 py-5 rounded-2xl overflow-hidden"
+              style={{ background: 'rgba(13,17,27,0.8)', border: '1px solid rgba(34,211,238,0.2)' }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/4 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <div className="relative w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'rgba(34,211,238,0.1)', border: '1px solid rgba(34,211,238,0.2)' }}>
+                <FiPhone size={18} style={{ color: '#22d3ee' }} />
+              </div>
+              <div className="relative text-left">
+                <p className="text-[10px] uppercase tracking-wider mb-0.5" style={{ color: '#4b5563' }}>Phone</p>
+                <p className="text-sm font-semibold tracking-tight" style={{ color: '#f0f2f5' }}>+91 98700 99043</p>
+              </div>
+              <FiArrowRight size={16} className="relative ml-auto transition-all duration-300" style={{ color: '#4b5563' }} />
+            </motion.a>
+          </div>
+        </AnimatedSection>
+
+        {/* Divider */}
+        <AnimatedSection className="flex items-center gap-4 w-full">
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent to-white/8" />
+          <span className="text-xs text-[#4B5563] tracking-widest uppercase px-2">or find me on</span>
+          <div className="flex-1 h-px bg-gradient-to-l from-transparent to-white/8" />
+        </AnimatedSection>
+
+        {/* Social cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+          {socials.map((s, i) => (
+            <AnimatedSection key={s.label} direction="scale" delay={i * 0.08}>
+              <motion.a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -8, scale: 1.02 }}
+                whileTap={{ scale: 0.96 }}
+                className={`group relative flex flex-col items-center gap-3 p-5 rounded-2xl glass border border-white/5 transition-all duration-300 hover:border-white/12 overflow-hidden hover:shadow-xl ${s.glow} shimmer-border ${s.border}`}
+              >
+                {/* Gradient bg on hover */}
+                <div className={`absolute inset-0 bg-gradient-to-b ${s.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+                <div className="relative w-11 h-11 rounded-xl bg-white/5 border border-white/8 flex items-center justify-center group-hover:border-white/15 transition-colors">
+                  <s.icon size={20} className={`text-[#6B7280] transition-colors duration-200 ${s.icon_color}`} />
+                </div>
+                <div className="relative text-center">
+                  <p className="text-sm font-semibold text-[#E5E7EB] group-hover:text-white transition-colors">{s.label}</p>
+                  <p className="text-xs text-[#6B7280] mt-0.5">{s.desc}</p>
+                </div>
+              </motion.a>
+            </AnimatedSection>
           ))}
         </div>
       </div>
-
-      {/* Footer */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        className="text-center text-sm text-gray-400 dark:text-gray-600 mt-16"
-      >
-        Designed & Built by{' '}
-        <span className="text-violet-500 font-semibold">Madhushree Mandokar</span> · {new Date().getFullYear()}
-      </motion.p>
     </section>
   );
 }

@@ -8,7 +8,7 @@ const stats = [
   { value: '10+',  label: 'Projects Built',    icon: HiOutlineCode,         gradient: 'from-violet-500 to-indigo-500', shadow: 'rgba(124,58,237,0.3)' },
   { value: '10+',  label: 'Certifications',    icon: HiOutlineAcademicCap,  gradient: 'from-cyan-500 to-teal-500',    shadow: 'rgba(34,211,238,0.3)' },
   { value: '100+', label: 'LeetCode Problems', icon: SiLeetcode,             gradient: 'from-orange-500 to-amber-500', shadow: 'rgba(249,115,22,0.3)' },
-  { value: '8.5',  label: 'CGPA',              icon: HiOutlineLightBulb,     gradient: 'from-pink-500 to-rose-500',    shadow: 'rgba(236,72,153,0.3)', noPlus: true },
+  { value: '7.95', label: 'CGPA',              icon: HiOutlineLightBulb,     gradient: 'from-pink-500 to-rose-500',    shadow: 'rgba(236,72,153,0.3)', noPlus: true },
 ];
 
 const highlights = [

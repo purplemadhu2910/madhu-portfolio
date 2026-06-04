@@ -15,6 +15,15 @@ const projects = [
     accent: { from: '#7c3aed', to: '#6366f1', glow: 'rgba(124,58,237,0.25)', border: 'rgba(124,58,237,0.3)', badge: { bg: 'rgba(124,58,237,0.12)', text: '#a78bfa', border: 'rgba(124,58,237,0.25)' } },
   },
   {
+    category: 'Web Dev', featured: false,
+    title: 'Resume Screener', subtitle: 'AI-Powered Resume Analyzer',
+    description: 'AI-powered resume vs job description compatibility analyzer using TF-IDF and Cosine Similarity. Features drag-and-drop upload, animated score ring, matched/missing skills, and actionable improvement suggestions.',
+    tech: ['React', 'Flask', 'Python', 'TF-IDF', 'Cosine Similarity', 'Tailwind CSS'],
+    github: 'https://github.com/purplemadhu2910',
+    demo: null,
+    accent: { from: '#16a34a', to: '#15803d', glow: 'rgba(22,163,74,0.2)', border: 'rgba(74,222,128,0.25)', badge: { bg: 'rgba(74,222,128,0.1)', text: '#4ade80', border: 'rgba(74,222,128,0.22)' } },
+  },
+  {
     category: 'AI/ML', featured: false,
     title: 'UPI Fraud Detection', subtitle: 'ML-Based Transaction Classifier',
     description: 'ML model to detect fraudulent UPI transactions using classification techniques, feature engineering, and data preprocessing on real-world financial datasets.',

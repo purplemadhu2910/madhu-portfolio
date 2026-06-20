@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { FiGithub, FiLinkedin, FiMail, FiArrowDown, FiDownload } from 'react-icons/fi';
 import { SiLeetcode } from 'react-icons/si';
 import profileImg from '../assets/madhu_profile.png';
-const resumePDF = '/madhushree-mandokar-resume.pdf';
+import resumePDF from '../assets/madhushree-mandokar-resume.pdf';
 
 const socials = [
   { icon: FiGithub,   href: 'https://github.com/purplemadhu2910',                        label: 'GitHub' },

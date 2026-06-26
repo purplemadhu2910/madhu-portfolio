@@ -56,10 +56,10 @@ export default function Contact() {
     setStatus('sending');
     try {
       await emailjs.sendForm(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
+        import.meta.env.VITE_EMAILJS_SERVICE_ID  || 'YOUR_SERVICE_ID',
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID',
         formRef.current,
-        'YOUR_PUBLIC_KEY'
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY  || 'YOUR_PUBLIC_KEY'
       );
       setStatus('success');
       setForm({ name: '', email: '', message: '' });

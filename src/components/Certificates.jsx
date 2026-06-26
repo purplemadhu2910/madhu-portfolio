@@ -15,15 +15,17 @@ const certificates = [
   { id: 8, title: 'SQL and Relational Databases', issuer: 'IBM SkillsBuild', date: 'Oct 2025', domain: 'Programming', link: 'https://drive.google.com/open?id=15nHOdxvPz7xXLTyLgP-hcJYREE8KMxj0' },
   { id: 9, title: 'React JS Bootcamp', issuer: 'Bootcamp', date: 'Sept 2025', domain: 'Web Dev', link: null },
   { id: 10, title: 'Dynamic Programming Camp', issuer: 'AlgoUniversity', date: 'April 2026', domain: 'Competitive Programming', link: 'https://drive.google.com/file/d/15bazG0qrTdnRLzlcLGD2E7QIQmu_BL2j/view?usp=sharing' },
+  { id: 11, title: 'Data Analytics Job Simulation', issuer: 'Deloitte Australia (Forage)', date: 'June 2026', domain: 'Data Analytics', link: 'https://drive.google.com/file/d/1eLPXEo6s5BZe_9k_FF8ofql-4c4jIerY/view?usp=drive_link' },
 ];
 
-const filters = ['All', 'AI & ML', 'Programming', 'Web Dev', 'Competitive Programming'];
+const filters = ['All', 'AI & ML', 'Programming', 'Web Dev', 'Competitive Programming', 'Data Analytics'];
 
 const domainStyle = {
   'AI & ML':                 { badge: 'bg-violet-500/12 text-violet-300 border-violet-500/25', bar: 'from-violet-500 to-purple-500', glow: 'hover:shadow-violet-500/10', check: 'group-hover:text-violet-400' },
   'Programming':             { badge: 'bg-blue-500/12 text-blue-300 border-blue-500/25',       bar: 'from-blue-500 to-indigo-500',   glow: 'hover:shadow-blue-500/10',   check: 'group-hover:text-blue-400' },
   'Web Dev':                 { badge: 'bg-cyan-500/12 text-cyan-300 border-cyan-500/25',        bar: 'from-cyan-500 to-teal-500',     glow: 'hover:shadow-cyan-500/10',   check: 'group-hover:text-cyan-400' },
   'Competitive Programming': { badge: 'bg-pink-500/12 text-pink-300 border-pink-500/25',        bar: 'from-pink-500 to-rose-500',     glow: 'hover:shadow-pink-500/10',   check: 'group-hover:text-pink-400' },
+  'Data Analytics':          { badge: 'bg-amber-500/12 text-amber-300 border-amber-500/25',      bar: 'from-amber-500 to-orange-500',  glow: 'hover:shadow-amber-500/10',  check: 'group-hover:text-amber-400' },
 };
 
 export default function Certificates() {

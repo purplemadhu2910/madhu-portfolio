@@ -146,7 +146,7 @@ export default function Contact() {
         {/* Contact form */}
         <AnimatedSection direction="scale" delay={0.2} className="w-full">
           <form ref={formRef} onSubmit={handleSubmit}
-            className="rounded-2xl p-6 space-y-4"
+            className="relative rounded-2xl p-6 space-y-4"
             style={{ background: 'rgba(13,17,27,0.7)', border: '1px solid rgba(255,255,255,0.07)' }}
           >
             <div className="absolute top-0 left-0 right-0 h-px rounded-t-2xl" style={{ background: 'linear-gradient(90deg, transparent, rgba(124,58,237,0.5), transparent)' }} />

@@ -2,7 +2,8 @@ import { motion } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 import AnimatedSection from './AnimatedSection';
 import { HiOutlineAcademicCap, HiOutlineLightBulb, HiOutlineCode } from 'react-icons/hi';
-import { SiLeetcode } from 'react-icons/si';
+import { SiLeetcode, SiGithub } from 'react-icons/si';
+import { FiExternalLink } from 'react-icons/fi';
 
 const stats = [
   { value: '10+',  label: 'Projects Built',    icon: HiOutlineCode,         gradient: 'from-violet-500 to-indigo-500', shadow: 'rgba(124,58,237,0.3)' },
@@ -25,7 +26,7 @@ function useCountUp(target, duration = 1500) {
     if (started.current || isNaN(numeric)) return;
     started.current = true;
     const t0 = performance.now();
-    const tick = now => {
+    const tick = (now) => {
       const p = Math.min((now - t0) / duration, 1);
       const val = (1 - Math.pow(1 - p, 3)) * numeric;
       setCount(Number.isInteger(numeric) ? Math.floor(val) : Math.round(val * 10) / 10);
@@ -40,19 +41,18 @@ function StatCard({ s }) {
   const raw = useCountUp(s.value);
   const display = s.noPlus ? raw : `${raw}+`;
   return (
-    <motion.div whileHover={{ y: -8, scale: 1.02 }}
+    <motion.div
+      whileHover={{ y: -8, scale: 1.02 }}
       className="relative rounded-2xl p-6 cursor-default overflow-hidden group transition-all duration-300"
       style={{ background: 'rgba(13,17,27,0.7)', border: '1px solid rgba(255,255,255,0.06)' }}
-      onMouseEnter={e => e.currentTarget.style.boxShadow = `0 20px 60px ${s.shadow}`}
-      onMouseLeave={e => e.currentTarget.style.boxShadow = 'none'}
+      onMouseEnter={(e) => (e.currentTarget.style.boxShadow = `0 20px 60px ${s.shadow}`)}
+      onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
     >
       <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${s.gradient} opacity-0 group-hover:opacity-[0.04] transition-opacity duration-300`} />
-      <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${s.gradient} flex items-center justify-center mb-4`}
-        style={{ boxShadow: `0 4px 20px ${s.shadow}` }}>
+      <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${s.gradient} flex items-center justify-center mb-4`} style={{ boxShadow: `0 4px 20px ${s.shadow}` }}>
         <s.icon size={19} className="text-white" />
       </div>
-      <p className={`text-3xl font-bold mb-1 bg-gradient-to-r ${s.gradient} bg-clip-text text-transparent`}
-        style={{ fontFamily: 'Space Grotesk', letterSpacing: '-0.02em' }}>
+      <p className={`text-3xl font-bold mb-1 bg-gradient-to-r ${s.gradient} bg-clip-text text-transparent`} style={{ fontFamily: 'Space Grotesk', letterSpacing: '-0.02em' }}>
         {display}
       </p>
       <p className="text-xs font-medium" style={{ color: '#8b95a5' }}>{s.label}</p>
@@ -61,6 +61,25 @@ function StatCard({ s }) {
 }
 
 export default function About() {
+  const [githubStats, setGithubStats] = useState({ repos: 10, followers: 0, loading: true });
+
+  useEffect(() => {
+    fetch('https://api.github.com/users/purplemadhu2910')
+      ? fetch('https://api.github.com/users/purplemadhu2910')
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.public_repos !== undefined) {
+              setGithubStats({
+                repos: data.public_repos,
+                followers: data.followers,
+                loading: false,
+              });
+            }
+          })
+          .catch(() => setGithubStats((prev) => ({ ...prev, loading: false })))
+      : null;
+  }, []);
+
   return (
     <section id="about" className="section-padding relative">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[150px] pointer-events-none" style={{ background: 'rgba(124,58,237,0.05)' }} />
@@ -76,22 +95,17 @@ export default function About() {
         {/* Left */}
         <div className="space-y-4">
           <AnimatedSection direction="left">
-            <div className="relative rounded-2xl p-7 overflow-hidden transition-all duration-300 hover-glow"
-              style={{ background: 'rgba(13,17,27,0.7)', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div className="relative rounded-2xl p-7 overflow-hidden transition-all duration-300 hover-glow" style={{ background: 'rgba(13,17,27,0.7)', border: '1px solid rgba(255,255,255,0.06)' }}>
               <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(124,58,237,0.5), transparent)' }} />
               <p className="text-base leading-[1.8] mb-4" style={{ color: '#8b95a5' }}>
-                I'm a passionate B.Tech CSE (Artificial Intelligence) student at Parul University,
-                driven by the intersection of intelligent systems and elegant software design.
+                I'm a passionate B.Tech CSE (Artificial Intelligence) student at Parul University, driven by the intersection of intelligent systems and elegant software design.
               </p>
               <p className="text-base leading-[1.8] mb-6" style={{ color: '#8b95a5' }}>
-                My journey spans building ML models for real-world problems — from UPI fraud detection
-                to sign language recognition — while crafting clean, performant web applications.
+                My journey spans building ML models for real-world problems — from UPI fraud detection to sign language recognition — while crafting clean, performant web applications.
               </p>
               <div className="flex flex-wrap gap-2.5">
-                {highlights.map(h => (
-                  <span key={h.label}
-                    className="px-3.5 py-1.5 rounded-xl text-xs font-semibold cursor-default transition-transform duration-200 hover:scale-105"
-                    style={{ background: h.from, border: `1px solid ${h.border}`, color: h.color }}>
+                {highlights.map((h) => (
+                  <span key={h.label} className="px-3.5 py-1.5 rounded-xl text-xs font-semibold cursor-default transition-transform duration-200 hover:scale-105" style={{ background: h.from, border: `1px solid ${h.border}`, color: h.color }}>
                     {h.label}
                   </span>
                 ))}
@@ -100,15 +114,14 @@ export default function About() {
           </AnimatedSection>
 
           <AnimatedSection direction="left" delay={0.1}>
-            <div className="relative rounded-2xl p-6 overflow-hidden transition-all duration-300 hover-glow"
-              style={{ background: 'rgba(13,17,27,0.7)', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div className="relative rounded-2xl p-6 overflow-hidden transition-all duration-300 hover-glow" style={{ background: 'rgba(13,17,27,0.7)', border: '1px solid rgba(255,255,255,0.06)' }}>
               <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(34,211,238,0.4), transparent)' }} />
               <p className="text-sm font-semibold mb-4" style={{ color: '#f0f2f5' }}>Currently focused on</p>
               <ul className="space-y-3">
                 {[
-                  ['Deep Learning & Neural Networks',         '#a78bfa'],
-                  ['Building scalable AI-powered web apps',   '#22d3ee'],
-                  ['Competitive programming on LeetCode',     '#818cf8'],
+                  ['Deep Learning & Neural Networks', '#a78bfa'],
+                  ['Building scalable AI-powered web apps', '#22d3ee'],
+                  ['Competitive programming on LeetCode', '#818cf8'],
                 ].map(([text, color]) => (
                   <li key={text} className="flex items-center gap-3 text-sm" style={{ color: '#8b95a5' }}>
                     <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: color }} />
@@ -120,13 +133,49 @@ export default function About() {
           </AnimatedSection>
         </div>
 
-        {/* Right — stat cards */}
-        <div className="grid grid-cols-2 gap-4">
-          {stats.map((s, i) => (
-            <AnimatedSection key={s.label} direction="scale" delay={i * 0.1}>
-              <StatCard s={s} />
-            </AnimatedSection>
-          ))}
+        {/* Right — stat cards & Live GitHub Card */}
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            {stats.map((s, i) => (
+              <AnimatedSection key={s.label} direction="scale" delay={i * 0.1}>
+                <StatCard s={s} />
+              </AnimatedSection>
+            ))}
+          </div>
+
+          {/* Live GitHub API Badge */}
+          <AnimatedSection direction="scale" delay={0.4}>
+            <a
+              href="https://github.com/purplemadhu2910"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex items-center justify-between p-4 rounded-2xl transition-all duration-300 hover:border-violet-500/40"
+              style={{
+                background: 'rgba(13,17,27,0.85)',
+                border: '1px solid rgba(124,58,237,0.2)',
+                boxShadow: '0 8px 32px rgba(124,58,237,0.08)',
+              }}
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 group-hover:scale-110 transition-transform">
+                  <SiGithub size={18} />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                    </span>
+                    <p className="text-xs font-semibold text-white">Live GitHub Stats</p>
+                  </div>
+                  <p className="text-xs text-[#8b95a5] mt-0.5">
+                    {githubStats.loading ? 'Syncing with API...' : `${githubStats.repos} Repositories • ${githubStats.followers} Followers`}
+                  </p>
+                </div>
+              </div>
+              <FiExternalLink size={14} className="text-[#8b95a5] group-hover:text-violet-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+            </a>
+          </AnimatedSection>
         </div>
       </div>
     </section>

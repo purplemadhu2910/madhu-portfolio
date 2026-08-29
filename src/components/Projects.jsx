@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiGithub, FiExternalLink } from 'react-icons/fi';
+import { FiGithub, FiExternalLink, FiSearch, FiX, FiInfo } from 'react-icons/fi';
 import { HiSparkles } from 'react-icons/hi';
 import AnimatedSection from './AnimatedSection';
 
@@ -9,6 +9,12 @@ const projects = [
     category: 'AI/ML', featured: true,
     title: 'LexAssist', subtitle: 'AI-Powered Legal Assistant Platform',
     description: 'An intelligent legal assistant leveraging RAG to answer complex tax and legal queries. Built with FastAPI backend, vector search, and a modern React frontend.',
+    highlights: [
+      'Retrieval-Augmented Generation (RAG) using ChromaDB vector database',
+      'FastAPI async backend providing low-latency document query API',
+      'Multi-language response support (English, Hindi, Marathi, etc.)',
+      'Document parsing for PDF, DOCX, and text formats with instant summaries'
+    ],
     tech: ['Python', 'FastAPI', 'React', 'OpenAI', 'ChromaDB', 'RAG'],
     github: 'https://github.com/purplemadhu2910/lexassist',
     demo: 'https://lexassist-1paa.onrender.com/',
@@ -74,7 +80,20 @@ const tabs = ['All', 'AI/ML', 'Web Dev'];
 
 export default function Projects() {
   const [active, setActive] = useState('All');
-  const filtered = active === 'All' ? projects : projects.filter(p => p.category === active);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const filtered = projects.filter((p) => {
+    const matchesCategory = active === 'All' || p.category === active;
+    const query = searchQuery.toLowerCase().trim();
+    const matchesSearch =
+      !query ||
+      p.title.toLowerCase().includes(query) ||
+      p.subtitle.toLowerCase().includes(query) ||
+      p.description.toLowerCase().includes(query) ||
+      p.tech.some((t) => t.toLowerCase().includes(query));
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <section id="projects" className="section-padding relative">
@@ -90,58 +109,95 @@ export default function Projects() {
         </p>
       </AnimatedSection>
 
-      {/* Tabs */}
-      <AnimatedSection className="flex justify-center gap-2 mb-12">
-        {tabs.map(tab => (
-          <button key={tab} onClick={() => setActive(tab)}
-            className={`relative px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${active === tab ? 'text-white' : 'text-[#8b95a5] hover:text-[#f0f2f5]'}`}
-            style={active !== tab ? { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' } : {}}>
-            {active === tab && (
-              <motion.div layoutId="proj-tab"
-                className="absolute inset-0 rounded-full"
-                style={{ background: 'linear-gradient(135deg, #7c3aed, #6366f1)', boxShadow: '0 4px 20px rgba(124,58,237,0.35)' }}
-                transition={{ type: 'spring', stiffness: 380, damping: 30 }} />
-            )}
-            <span className="relative z-10">{tab}</span>
-          </button>
-        ))}
+      {/* Search & Category Filter Controls */}
+      <AnimatedSection className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-10 max-w-4xl mx-auto">
+        {/* Category Tabs */}
+        <div className="flex items-center gap-2">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActive(tab)}
+              className={`relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
+                active === tab ? 'text-white' : 'text-[#8b95a5] hover:text-[#f0f2f5]'
+              }`}
+              style={active !== tab ? { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' } : {}}
+            >
+              {active === tab && (
+                <motion.div
+                  layoutId="proj-tab"
+                  className="absolute inset-0 rounded-full"
+                  style={{ background: 'linear-gradient(135deg, #7c3aed, #6366f1)', boxShadow: '0 4px 20px rgba(124,58,237,0.35)' }}
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+              <span className="relative z-10">{tab}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Search Box */}
+        <div className="relative w-full sm:w-72">
+          <FiSearch size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8b95a5]" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search tech or project..."
+            className="w-full pl-9 pr-8 py-2 rounded-full text-xs outline-none transition-all duration-200"
+            style={{
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              color: '#f0f2f5',
+            }}
+            onFocus={(e) => (e.target.style.borderColor = 'rgba(124,58,237,0.5)')}
+            onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')}
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8b95a5] hover:text-white"
+            >
+              <FiX size={13} />
+            </button>
+          )}
+        </div>
       </AnimatedSection>
 
       {/* Grid */}
       <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         <AnimatePresence mode="popLayout">
           {filtered.map((p, i) => (
-            <motion.div key={p.title} layout
+            <motion.div
+              key={p.title}
+              layout
               initial={{ opacity: 0, scale: 0.93, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.93 }}
               transition={{ duration: 0.32, delay: i * 0.055 }}
               whileHover={{ y: -8 }}
-              className="group relative rounded-2xl overflow-hidden flex flex-col transition-all duration-300"
+              onClick={() => setSelectedProject(p)}
+              className="group relative rounded-2xl overflow-hidden flex flex-col transition-all duration-300 cursor-pointer"
               style={{
                 background: 'rgba(13,17,27,0.75)',
                 border: `1px solid ${p.accent.border}`,
                 boxShadow: p.featured ? `0 0 0 1px ${p.accent.border}, 0 0 40px ${p.accent.glow}, 0 24px 48px rgba(0,0,0,0.35)` : 'none',
               }}
-              onMouseEnter={e => e.currentTarget.style.boxShadow = `0 0 0 1px ${p.accent.border}, 0 0 50px ${p.accent.glow}, 0 24px 60px rgba(0,0,0,0.4)`}
-              onMouseLeave={e => e.currentTarget.style.boxShadow = p.featured ? `0 0 0 1px ${p.accent.border}, 0 0 40px ${p.accent.glow}, 0 24px 48px rgba(0,0,0,0.35)` : 'none'}
+              onMouseEnter={(e) => (e.currentTarget.style.boxShadow = `0 0 0 1px ${p.accent.border}, 0 0 50px ${p.accent.glow}, 0 24px 60px rgba(0,0,0,0.4)`)}
+              onMouseLeave={(e) => (e.currentTarget.style.boxShadow = p.featured ? `0 0 0 1px ${p.accent.border}, 0 0 40px ${p.accent.glow}, 0 24px 48px rgba(0,0,0,0.35)` : 'none')}
             >
               {/* Top gradient bar */}
               <div className="h-[2px] w-full" style={{ background: `linear-gradient(90deg, ${p.accent.from}, ${p.accent.to})` }} />
 
               {/* Banner */}
-              <div className="h-28 relative overflow-hidden flex items-end p-4"
-                style={{ background: `linear-gradient(135deg, ${p.accent.from}22, ${p.accent.to}10, rgba(13,17,27,0.6))` }}>
+              <div className="h-28 relative overflow-hidden flex items-end p-4" style={{ background: `linear-gradient(135deg, ${p.accent.from}22, ${p.accent.to}10, rgba(13,17,27,0.6))` }}>
                 <div className="absolute inset-0 opacity-[0.12]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.2) 1px, transparent 0)', backgroundSize: '18px 18px' }} />
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(13,17,27,0.7), transparent)' }} />
                 {p.featured && (
-                  <span className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold"
-                    style={{ background: 'rgba(124,58,237,0.2)', border: '1px solid rgba(167,139,250,0.35)', color: '#a78bfa' }}>
+                  <span className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold" style={{ background: 'rgba(124,58,237,0.2)', border: '1px solid rgba(167,139,250,0.35)', color: '#a78bfa' }}>
                     <HiSparkles size={9} /> Featured
                   </span>
                 )}
-                <span className="relative z-10 text-xs font-semibold px-2.5 py-1 rounded-full"
-                  style={{ background: p.accent.badge.bg, border: `1px solid ${p.accent.badge.border}`, color: p.accent.badge.text }}>
+                <span className="relative z-10 text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: p.accent.badge.bg, border: `1px solid ${p.accent.badge.border}`, color: p.accent.badge.text }}>
                   {p.category}
                 </span>
               </div>
@@ -149,45 +205,39 @@ export default function Projects() {
               {/* Body */}
               <div className="flex flex-col flex-1 p-5 gap-3">
                 <div>
-                  <h3 className="text-base font-bold mb-0.5 group-hover:text-white transition-colors duration-200" style={{ color: '#f0f2f5', letterSpacing: '-0.01em' }}>{p.title}</h3>
+                  <div className="flex items-center justify-between gap-2 mb-0.5">
+                    <h3 className="text-base font-bold group-hover:text-white transition-colors duration-200" style={{ color: '#f0f2f5', letterSpacing: '-0.01em' }}>{p.title}</h3>
+                    <FiInfo size={14} className="text-[#8b95a5] opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
                   <p className="text-xs font-medium mb-2.5" style={{ color: p.accent.badge.text }}>{p.subtitle}</p>
                   <p className="text-sm leading-[1.7]" style={{ color: '#8b95a5' }}>{p.description}</p>
                 </div>
 
                 {/* Tech stack */}
                 <div className="flex flex-wrap gap-1.5 mt-auto pt-3">
-                  {p.tech.map(t => (
-                    <span key={t} className="text-xs px-2.5 py-1 rounded-lg font-medium transition-colors duration-150 cursor-default"
-                      style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', color: '#8b95a5' }}
-                      onMouseEnter={e => { e.currentTarget.style.color = '#f0f2f5'; e.currentTarget.style.background = 'rgba(255,255,255,0.07)'; }}
-                      onMouseLeave={e => { e.currentTarget.style.color = '#8b95a5'; e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; }}>
+                  {p.tech.map((t) => (
+                    <span key={t} className="text-xs px-2.5 py-1 rounded-lg font-medium transition-colors duration-150 cursor-default" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', color: '#8b95a5' }}>
                       {t}
                     </span>
                   ))}
                 </div>
 
                 {/* Links */}
-                <div className="flex items-center gap-3 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-                  {p.github
-                    ? <a href={p.github} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs font-semibold transition-colors duration-150"
-                        style={{ color: '#8b95a5' }}
-                        onMouseEnter={e => e.currentTarget.style.color = '#f0f2f5'}
-                        onMouseLeave={e => e.currentTarget.style.color = '#8b95a5'}>
-                        <FiGithub size={12} /> GitHub
-                      </a>
-                    : <span className="flex items-center gap-1.5 text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.18)', cursor: 'not-allowed' }}><FiGithub size={12} /> GitHub</span>
-                  }
-                  {p.demo
-                    ? <a href={p.demo} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs font-semibold transition-colors duration-150 ml-auto"
-                        style={{ color: '#8b95a5' }}
-                        onMouseEnter={e => e.currentTarget.style.color = p.accent.badge.text}
-                        onMouseLeave={e => e.currentTarget.style.color = '#8b95a5'}>
-                        <FiExternalLink size={12} /> Live Demo
-                      </a>
-                    : <span className="flex items-center gap-1.5 text-xs font-semibold ml-auto" style={{ color: 'rgba(255,255,255,0.18)', cursor: 'not-allowed' }}><FiExternalLink size={12} /> Live Demo</span>
-                  }
+                <div className="flex items-center gap-3 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }} onClick={(e) => e.stopPropagation()}>
+                  {p.github ? (
+                    <a href={p.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-semibold transition-colors duration-150" style={{ color: '#8b95a5' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#f0f2f5')} onMouseLeave={(e) => (e.currentTarget.style.color = '#8b95a5')}>
+                      <FiGithub size={12} /> GitHub
+                    </a>
+                  ) : (
+                    <span className="flex items-center gap-1.5 text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.18)', cursor: 'not-allowed' }}><FiGithub size={12} /> GitHub</span>
+                  )}
+                  {p.demo ? (
+                    <a href={p.demo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-semibold transition-colors duration-150 ml-auto" style={{ color: '#8b95a5' }} onMouseEnter={(e) => (e.currentTarget.style.color = p.accent.badge.text)} onMouseLeave={(e) => (e.currentTarget.style.color = '#8b95a5')}>
+                      <FiExternalLink size={12} /> Live Demo
+                    </a>
+                  ) : (
+                    <span className="flex items-center gap-1.5 text-xs font-semibold ml-auto" style={{ color: 'rgba(255,255,255,0.18)', cursor: 'not-allowed' }}><FiExternalLink size={12} /> Live Demo</span>
+                  )}
                 </div>
               </div>
             </motion.div>
@@ -195,14 +245,129 @@ export default function Projects() {
         </AnimatePresence>
       </motion.div>
 
+      {/* Detail Modal Overlay */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedProject(null)}
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-xl rounded-2xl overflow-hidden glass border border-white/10 p-6 shadow-2xl space-y-5"
+              style={{ background: '#0a0e1a' }}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 right-4 p-2 rounded-xl text-[#8b95a5] hover:text-white hover:bg-white/5 transition-colors"
+              >
+                <FiX size={18} />
+              </button>
+
+              {/* Category & Badge */}
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: selectedProject.accent.badge.bg, border: `1px solid ${selectedProject.accent.badge.border}`, color: selectedProject.accent.badge.text }}>
+                  {selectedProject.category}
+                </span>
+                {selectedProject.featured && (
+                  <span className="flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold" style={{ background: 'rgba(124,58,237,0.2)', border: '1px solid rgba(167,139,250,0.35)', color: '#a78bfa' }}>
+                    <HiSparkles size={11} /> Featured Project
+                  </span>
+                )}
+              </div>
+
+              {/* Title & Subtitle */}
+              <div>
+                <h3 className="text-2xl font-bold text-white mb-1">{selectedProject.title}</h3>
+                <p className="text-sm font-medium" style={{ color: selectedProject.accent.badge.text }}>{selectedProject.subtitle}</p>
+              </div>
+
+              {/* Overview */}
+              <p className="text-sm leading-relaxed text-[#8b95a5]">{selectedProject.description}</p>
+
+              {/* Highlights */}
+              {selectedProject.highlights && (
+                <div className="space-y-2">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-white">Key Features & Highlights</h4>
+                  <ul className="space-y-1.5 text-xs text-[#8b95a5]">
+                    {selectedProject.highlights.map((h, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ background: selectedProject.accent.badge.text }} />
+                        <span>{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Tech Stack Tags */}
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-2">Technologies Used</h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedProject.tech.map((t) => (
+                    <span key={t} className="text-xs px-3 py-1 rounded-lg font-medium" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#f0f2f5' }}>
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+                {selectedProject.github && (
+                  <a
+                    href={selectedProject.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold text-white bg-white/10 hover:bg-white/15 transition-colors border border-white/10"
+                  >
+                    <FiGithub size={14} /> View Code on GitHub
+                  </a>
+                )}
+                {selectedProject.demo && (
+                  <a
+                    href={selectedProject.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 transition-shadow"
+                  >
+                    <FiExternalLink size={14} /> Open Live Demo
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* GitHub CTA */}
       <AnimatedSection className="text-center mt-12">
-        <motion.a href="https://github.com/purplemadhu2910" target="_blank" rel="noopener noreferrer"
-          whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+        <motion.a
+          href="https://github.com/purplemadhu2910"
+          target="_blank"
+          rel="noopener noreferrer"
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.97 }}
           className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300"
           style={{ background: 'rgba(124,58,237,0.07)', border: '1px solid rgba(124,58,237,0.22)', color: '#a78bfa' }}
-          onMouseEnter={e => { e.currentTarget.style.background = 'rgba(124,58,237,0.12)'; e.currentTarget.style.borderColor = 'rgba(124,58,237,0.4)'; e.currentTarget.style.boxShadow = '0 0 24px rgba(124,58,237,0.2)'; }}
-          onMouseLeave={e => { e.currentTarget.style.background = 'rgba(124,58,237,0.07)'; e.currentTarget.style.borderColor = 'rgba(124,58,237,0.22)'; e.currentTarget.style.boxShadow = 'none'; }}>
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(124,58,237,0.12)';
+            e.currentTarget.style.borderColor = 'rgba(124,58,237,0.4)';
+            e.currentTarget.style.boxShadow = '0 0 24px rgba(124,58,237,0.2)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(124,58,237,0.07)';
+            e.currentTarget.style.borderColor = 'rgba(124,58,237,0.22)';
+            e.currentTarget.style.boxShadow = 'none';
+          }}
+        >
           <FiGithub size={14} /> View all projects on GitHub
         </motion.a>
       </AnimatedSection>

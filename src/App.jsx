@@ -103,6 +103,19 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const defaultTitle = document.title || 'Madhushree Mandokar | AI Developer';
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        document.title = '👋 Come back! | Madhushree Mandokar';
+      } else {
+        document.title = defaultTitle;
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, []);
+
   return (
     <>
       <AnimatePresence>{loading && <LoadingScreen />}</AnimatePresence>

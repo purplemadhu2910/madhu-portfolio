@@ -3,17 +3,13 @@ import { useState, useEffect } from 'react';
 import { FiGithub, FiLinkedin, FiMail, FiArrowDown, FiDownload } from 'react-icons/fi';
 import { SiLeetcode } from 'react-icons/si';
 import profileImg from '../assets/madhu_profile.png';
-<<<<<<< HEAD
-import resumePDF from '../assets/madhushree-mandokar-resume.pdf';
-=======
-const resumePDF = '/madhushree-mandokar-resume.pdf';
->>>>>>> 20bc88fa89cf3547ac3869816bb0fc6d67217b3a
+import resumePDF from '../assets/mandokar_madhushree_resume.pdf';
 
 const socials = [
-  { icon: FiGithub,   href: 'https://github.com/purplemadhu2910',                        label: 'GitHub' },
-  { icon: FiLinkedin, href: 'https://www.linkedin.com/in/madhushree-m-1544a42b5/',        label: 'LinkedIn' },
-  { icon: SiLeetcode, href: 'https://leetcode.com/u/purplemadhu2910/',                    label: 'LeetCode' },
-  { icon: FiMail,     href: 'mailto:madhu.mandokar29@gmail.com',                          label: 'Email' },
+  { icon: FiGithub, href: 'https://github.com/purplemadhu2910', label: 'GitHub' },
+  { icon: FiLinkedin, href: 'https://www.linkedin.com/in/madhushree-m-1544a42b5/', label: 'LinkedIn' },
+  { icon: SiLeetcode, href: 'https://leetcode.com/u/purplemadhu2910/', label: 'LeetCode' },
+  { icon: FiMail, href: 'mailto:madhu.mandokar29@gmail.com', label: 'Email' },
 ];
 
 const roles = ['AI Developer', 'ML Engineer', 'Problem Solver', 'Full-Stack Builder'];
@@ -23,14 +19,14 @@ const container = {
   visible: { transition: { staggerChildren: 0.11, delayChildren: 0.15 } },
 };
 const item = {
-  hidden:   { opacity: 0, y: 24 },
-  visible:  { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
 };
 
 function TypewriterRole() {
-  const [index, setIndex]       = useState(0);
+  const [index, setIndex] = useState(0);
   const [displayed, setDisplayed] = useState('');
-  const [deleting, setDeleting]  = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     const current = roles[index];
@@ -41,7 +37,12 @@ function TypewriterRole() {
       t = setTimeout(() => setDeleting(true), 2000);
     else if (deleting && displayed.length > 0)
       t = setTimeout(() => setDisplayed(current.slice(0, displayed.length - 1)), 40);
-    else { setDeleting(false); setIndex(i => (i + 1) % roles.length); }
+    else {
+      t = setTimeout(() => {
+        setDeleting(false);
+        setIndex((i) => (i + 1) % roles.length);
+      }, 50);
+    }
     return () => clearTimeout(t);
   }, [displayed, deleting, index]);
 
@@ -251,7 +252,7 @@ export default function Hero() {
             </div>
 
             {/* Floating chip — bottom right */}
-            <motion.div animate={{ y: [0,-7,0] }} transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+            <motion.div animate={{ y: [0, -7, 0] }} transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
               className="absolute -bottom-4 -right-6 rounded-2xl px-4 py-2.5 backdrop-blur-xl"
               style={{ background: 'rgba(13,17,27,0.85)', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
               <p className="text-[10px] uppercase tracking-wider" style={{ color: '#4b5563' }}>Currently</p>
@@ -259,7 +260,7 @@ export default function Hero() {
             </motion.div>
 
             {/* Floating chip — top left */}
-            <motion.div animate={{ y: [0,7,0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+            <motion.div animate={{ y: [0, 7, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
               className="absolute -top-4 -left-6 rounded-2xl px-4 py-2.5 backdrop-blur-xl"
               style={{ background: 'rgba(13,17,27,0.85)', border: '1px solid rgba(124,58,237,0.25)', boxShadow: '0 8px 32px rgba(124,58,237,0.12)' }}>
               <p className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: '#a78bfa' }}>Parul University</p>
@@ -273,7 +274,7 @@ export default function Hero() {
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group"
           onClick={() => scrollTo('about')}>
           <span className="text-[10px] tracking-[0.2em] uppercase transition-colors" style={{ color: '#4b5563' }}>Scroll</span>
-          <motion.div animate={{ y: [0,6,0] }} transition={{ duration: 1.6, repeat: Infinity }}>
+          <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity }}>
             <FiArrowDown size={14} style={{ color: '#4b5563' }} />
           </motion.div>
         </motion.div>

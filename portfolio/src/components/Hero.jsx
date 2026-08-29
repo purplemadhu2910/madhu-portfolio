@@ -37,7 +37,12 @@ function TypewriterRole() {
       t = setTimeout(() => setDeleting(true), 2000);
     else if (deleting && displayed.length > 0)
       t = setTimeout(() => setDisplayed(current.slice(0, displayed.length - 1)), 40);
-    else { setDeleting(false); setIndex(i => (i + 1) % roles.length); }
+    else {
+      t = setTimeout(() => {
+        setDeleting(false);
+        setIndex((i) => (i + 1) % roles.length);
+      }, 50);
+    }
     return () => clearTimeout(t);
   }, [displayed, deleting, index]);
 

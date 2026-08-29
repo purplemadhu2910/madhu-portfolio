@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring, useMotionValue, useSpring as useMotionSpring } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence, useScroll, useSpring, useMotionValue } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -64,8 +64,8 @@ function LoadingScreen() {
 function CursorTrail() {
   const cursorX = useMotionValue(-9999);
   const cursorY = useMotionValue(-9999);
-  const springX = useMotionSpring(cursorX, { stiffness: 60, damping: 20 });
-  const springY = useMotionSpring(cursorY, { stiffness: 60, damping: 20 });
+  const springX = useSpring(cursorX, { stiffness: 60, damping: 20 });
+  const springY = useSpring(cursorY, { stiffness: 60, damping: 20 });
 
   useEffect(() => {
     const onMove = (e) => {
@@ -74,7 +74,7 @@ function CursorTrail() {
     };
     window.addEventListener('mousemove', onMove);
     return () => window.removeEventListener('mousemove', onMove);
-  }, []);
+  }, [cursorX, cursorY]);
 
   return (
     <motion.div

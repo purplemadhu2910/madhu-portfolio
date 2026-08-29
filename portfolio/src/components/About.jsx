@@ -33,7 +33,7 @@ function useCountUp(target, duration = 1500) {
     };
     requestAnimationFrame(tick);
   }, [numeric, duration]);
-  return isNaN(numeric) ? target : numeric;
+  return isNaN(numeric) ? target : count;
 }
 
 function StatCard({ s }) {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring, useMotionValue, useSpring as useMotionSpring } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring, useMotionValue } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';

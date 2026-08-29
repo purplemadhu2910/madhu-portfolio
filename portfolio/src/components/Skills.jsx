@@ -5,7 +5,7 @@ import {
   SiScikitlearn, SiMysql, SiGit, SiGithub, SiHtml5, SiCss,
   SiStreamlit, SiOpenai, SiFastapi, SiFlask, SiMongodb, SiVercel,
 } from 'react-icons/si';
-import { TbBrandCpp, TbVectorBezier2, TbBrandMysql } from 'react-icons/tb';
+import { TbBrandCpp, TbVectorBezier2 } from 'react-icons/tb';
 import { VscCode } from 'react-icons/vsc';
 import { FaJava, FaDatabase, FaBrain } from 'react-icons/fa';
 import { MdOutlineBarChart } from 'react-icons/md';

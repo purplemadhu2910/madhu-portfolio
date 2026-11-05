@@ -1,38 +1,44 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiArrowUp } from 'react-icons/fi';
+import { useTheme } from '../context/ThemeContext';
 
 export default function BackToTop() {
-  const [visible, setVisible] = useState(false);
+  const { theme } = useTheme();
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 400);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const handleScroll = () => {
+      setShow(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const isDark = theme === 'dark';
 
   return (
     <AnimatePresence>
-      {visible && (
+      {show && (
         <motion.button
-          initial={{ opacity: 0, scale: 0.6, y: 16 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.6, y: 16 }}
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          whileHover={{ scale: 1.12 }}
-          whileTap={{ scale: 0.92 }}
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          whileHover={{ scale: 1.1, y: -3 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={scrollToTop}
           aria-label="Back to top"
-          className="fixed bottom-8 right-8 z-40 w-12 h-12 rounded-xl flex items-center justify-center text-white"
-          style={{
-            background: 'linear-gradient(135deg, #7c3aed, #6366f1)',
-            boxShadow: '0 0 20px rgba(124,58,237,0.5), 0 4px 24px rgba(124,58,237,0.3)',
-          }}
+          className={`fixed bottom-6 right-6 z-50 p-3 rounded-full border shadow-xl transition-colors cursor-pointer ${
+            isDark
+              ? 'bg-[#0d1117]/90 text-violet-300 border-violet-500/30 hover:bg-violet-600 hover:text-white'
+              : 'bg-white text-[#2A493C] border-[#2A493C]/30 hover:bg-[#2A493C] hover:text-white'
+          }`}
         >
-          {/* Pulse ring */}
-          <span className="absolute inset-0 rounded-xl animate-ping opacity-30"
-            style={{ background: 'linear-gradient(135deg, #7c3aed, #6366f1)' }} />
-          <FiArrowUp size={18} className="relative z-10" />
+          <FiArrowUp size={18} />
         </motion.button>
       )}
     </AnimatePresence>

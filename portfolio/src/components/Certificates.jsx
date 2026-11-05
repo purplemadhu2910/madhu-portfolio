@@ -15,15 +15,24 @@ const certificates = [
   { id: 8, title: 'SQL and Relational Databases', issuer: 'IBM SkillsBuild', date: 'Oct 2025', domain: 'Programming', link: 'https://drive.google.com/open?id=15nHOdxvPz7xXLTyLgP-hcJYREE8KMxj0' },
   { id: 9, title: 'React JS Bootcamp', issuer: 'Bootcamp', date: 'Sept 2025', domain: 'Web Dev', link: null },
   { id: 10, title: 'Dynamic Programming Camp', issuer: 'AlgoUniversity', date: 'April 2026', domain: 'Competitive Programming', link: 'https://drive.google.com/file/d/15bazG0qrTdnRLzlcLGD2E7QIQmu_BL2j/view?usp=sharing' },
+  { id: 11, title: 'GirlScript Summer of Code 2026', issuer: 'GSSOC', date: 'October 2026', domain: 'Participation', link: 'https://drive.google.com/file/d/1Svy_f_SuNSFQwN2XgnpVw09i0knWXSVe/view?usp=drive_link' },
 ];
 
-const filters = ['All', 'AI & ML', 'Programming', 'Web Dev', 'Competitive Programming'];
+const filters = ['All', 'AI & ML', 'Programming', 'Web Dev', 'Competitive Programming', 'Participation'];
+
+const defaultDomainStyle = {
+  badge: 'bg-emerald-500/12 text-emerald-300 border-emerald-500/25',
+  bar: 'from-emerald-500 to-teal-500',
+  glow: 'hover:shadow-emerald-500/10',
+  check: 'group-hover:text-emerald-400',
+};
 
 const domainStyle = {
-  'AI & ML':                 { badge: 'bg-violet-500/12 text-violet-300 border-violet-500/25', bar: 'from-violet-500 to-purple-500', glow: 'hover:shadow-violet-500/10', check: 'group-hover:text-violet-400' },
-  'Programming':             { badge: 'bg-blue-500/12 text-blue-300 border-blue-500/25',       bar: 'from-blue-500 to-indigo-500',   glow: 'hover:shadow-blue-500/10',   check: 'group-hover:text-blue-400' },
-  'Web Dev':                 { badge: 'bg-cyan-500/12 text-cyan-300 border-cyan-500/25',        bar: 'from-cyan-500 to-teal-500',     glow: 'hover:shadow-cyan-500/10',   check: 'group-hover:text-cyan-400' },
-  'Competitive Programming': { badge: 'bg-pink-500/12 text-pink-300 border-pink-500/25',        bar: 'from-pink-500 to-rose-500',     glow: 'hover:shadow-pink-500/10',   check: 'group-hover:text-pink-400' },
+  'AI & ML': { badge: 'bg-violet-500/12 text-violet-300 border-violet-500/25', bar: 'from-violet-500 to-purple-500', glow: 'hover:shadow-violet-500/10', check: 'group-hover:text-violet-400' },
+  'Programming': { badge: 'bg-blue-500/12 text-blue-300 border-blue-500/25', bar: 'from-blue-500 to-indigo-500', glow: 'hover:shadow-blue-500/10', check: 'group-hover:text-blue-400' },
+  'Web Dev': { badge: 'bg-cyan-500/12 text-cyan-300 border-cyan-500/25', bar: 'from-cyan-500 to-teal-500', glow: 'hover:shadow-cyan-500/10', check: 'group-hover:text-cyan-400' },
+  'Competitive Programming': { badge: 'bg-pink-500/12 text-pink-300 border-pink-500/25', bar: 'from-pink-500 to-rose-500', glow: 'hover:shadow-pink-500/10', check: 'group-hover:text-pink-400' },
+  'Participation': { badge: 'bg-emerald-500/12 text-emerald-300 border-emerald-500/25', bar: 'from-emerald-500 to-teal-500', glow: 'hover:shadow-emerald-500/10', check: 'group-hover:text-emerald-400' },
 };
 
 export default function Certificates() {
@@ -56,9 +65,8 @@ export default function Certificates() {
           <button
             key={f}
             onClick={() => setActive(f)}
-            className={`relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
-              active === f ? 'text-white' : 'text-[#9CA3AF] hover:text-[#F3F4F6] glass-light border border-white/8'
-            }`}
+            className={`relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${active === f ? 'text-white' : 'text-[#9CA3AF] hover:text-[#F3F4F6] glass-light border border-white/8'
+              }`}
           >
             {active === f && (
               <motion.div
@@ -83,7 +91,7 @@ export default function Certificates() {
       <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         <AnimatePresence mode="popLayout">
           {filtered.map((cert, i) => {
-            const style = domainStyle[cert.domain];
+            const style = domainStyle[cert.domain] || defaultDomainStyle;
             return (
               <motion.div
                 key={cert.id}

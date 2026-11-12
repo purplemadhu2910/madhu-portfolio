@@ -13,6 +13,7 @@ const domainStyleDark = {
   'Competitive Programming': { badge: 'bg-pink-500/12 text-pink-300 border-pink-500/25',        bar: 'from-pink-500 to-rose-500' },
   'Data Analytics':          { badge: 'bg-amber-500/12 text-amber-300 border-amber-500/25',      bar: 'from-amber-500 to-orange-500' },
   'Participation':           { badge: 'bg-emerald-500/12 text-emerald-300 border-emerald-500/25', bar: 'from-emerald-500 to-teal-500' },
+  'IoT':                     { badge: 'bg-orange-500/12 text-orange-300 border-orange-500/25',   bar: 'from-orange-500 to-amber-500' },
 };
 
 export default function Certificates() {

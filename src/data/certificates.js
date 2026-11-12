@@ -118,6 +118,16 @@ export const certificatesData = [
     domain: 'Participation',
     description: 'Contributor in open-source projects under GirlScript Summer of Code (GSSoC), collaborating on codebases and community development.',
     link: 'https://drive.google.com/file/d/1Svy_f_SuNSFQwN2XgnpVw09i0knWXSVe/view?usp=drive_link'
+  },
+  {
+    id: 13,
+    title: 'Introduction to Internet of Things',
+    issuer: 'NPTEL (SWAYAM)',
+    date: 'Elite (70%)',
+    category: 'IoT',
+    domain: 'IoT',
+    description: 'Elite certified (70%) in Internet of Things by NPTEL covering IoT architecture, sensor networks, embedded systems, communication protocols, and cloud computing.',
+    link: 'https://drive.google.com/file/d/1hmhWn_vVYpgmMpdm11a4frew-Knrmwht/view?usp=drive_link'
   }
 ];
 
@@ -128,5 +138,6 @@ export const certificateCategories = [
   'Web Dev',
   'Competitive Programming',
   'Data Analytics',
-  'Participation'
+  'Participation',
+  'IoT'
 ];

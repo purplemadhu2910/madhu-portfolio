@@ -124,6 +124,8 @@ export default function Navbar({ onGoIntro }) {
           <a
             href={personalInfo.resume.url}
             download={personalInfo.resume.filename}
+            target="_blank"
+            rel="noopener noreferrer"
             className={`flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 ${
               theme === 'dark'
                 ? 'bg-violet-600/10 text-violet-300 border border-violet-500/30 hover:bg-violet-600/20'
@@ -184,6 +186,8 @@ export default function Navbar({ onGoIntro }) {
                 <a
                   href={personalInfo.resume.url}
                   download={personalInfo.resume.filename}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-full ${
                     theme === 'dark'
                       ? 'bg-violet-600 text-white'

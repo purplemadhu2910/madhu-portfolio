@@ -5,7 +5,6 @@ import { SiLeetcode } from 'react-icons/si';
 import { useTheme } from '../context/ThemeContext';
 import { personalInfo } from '../data/profile';
 import profileImg from '../assets/madhu_profile.png';
-import resumePDF from '../assets/mandokar_madhushree_resume.pdf';
 
 const socials = [
   { icon: FiGithub, href: personalInfo.socials.github.url, label: 'GitHub' },
@@ -165,8 +164,10 @@ export default function Hero() {
             </button>
 
             <a
-              href={resumePDF}
-              download="Madhushree_Mandokar_Resume.pdf"
+              href={personalInfo.resume.url}
+              download={personalInfo.resume.filename}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group flex items-center gap-2.5 px-7 py-3.5 bg-white border border-[#1D1D1F]/20 text-[#1D1D1F] font-semibold text-sm rounded-full shadow-sm hover:border-[#1D1D1F] hover:bg-stone-50 transition-all duration-200 active:scale-95"
             >
               <FiDownload className="w-4 h-4 text-[#2A493C]" />
@@ -284,8 +285,10 @@ export default function Hero() {
               <motion.a
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                href={resumePDF}
-                download="Madhushree_Mandokar_Resume.pdf"
+                href={personalInfo.resume.url}
+                download={personalInfo.resume.filename}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300"
                 style={{ background: 'rgba(34,211,238,0.06)', border: '1px solid rgba(34,211,238,0.2)', color: '#22d3ee' }}
               >

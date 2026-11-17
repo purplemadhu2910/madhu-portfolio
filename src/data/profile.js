@@ -6,11 +6,11 @@ export const personalInfo = {
   university: "Parul University",
   location: "India",
   gradYear: "2027",
-  cgpa: "7.95",
+  cgpa: "8.09/10",
   tagline: "Building AI-powered products at the intersection of machine learning and elegant software.",
   shortIntro: "B.Tech CSE (AI) student at Parul University building AI models, RAG systems, and scalable full-stack applications.",
   roles: ['AI Developer', 'ML Engineer', 'Problem Solver', 'Full-Stack Builder'],
-  
+
   aboutHeading: "Hi, I'm Madhushree.",
   aboutParagraphs: [
     "I am a passionate B.Tech CSE (Artificial Intelligence) student at Parul University, driven by the intersection of intelligent systems and elegant software design.",
@@ -34,9 +34,9 @@ export const personalInfo = {
 
   stats: [
     { value: '10+', label: 'Projects Built' },
-    { value: '10+', label: 'Certifications' },
+    { value: '13+', label: 'Certifications' },
     { value: '100+', label: 'LeetCode Problems' },
-    { value: '7.95', label: 'CGPA', noPlus: true },
+    { value: '8.09', label: 'B.Tech CGPA (/10)', noPlus: true },
   ],
 
   socials: {
@@ -73,7 +73,7 @@ export const personalInfo = {
   },
 
   resume: {
-    url: "/madhushree-mandokar-resume.pdf",
+    url: "/madhushree_mandokar_resume.pdf",
     filename: "Madhushree_Mandokar_Resume.pdf"
   }
 };

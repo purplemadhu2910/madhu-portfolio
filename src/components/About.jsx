@@ -13,6 +13,8 @@ function useCountUp(target, duration = 1500) {
   const [count, setCount] = useState(0);
   const started = useRef(false);
   const numeric = parseFloat(target);
+  const decimals = target?.toString().includes('.') ? target.toString().split('.')[1].length : 0;
+
   useEffect(() => {
     if (started.current || isNaN(numeric)) return;
     started.current = true;
@@ -20,11 +22,15 @@ function useCountUp(target, duration = 1500) {
     const tick = (now) => {
       const p = Math.min((now - t0) / duration, 1);
       const val = (1 - Math.pow(1 - p, 3)) * numeric;
-      setCount(Number.isInteger(numeric) ? Math.floor(val) : Math.round(val * 10) / 10);
+      if (decimals > 0) {
+        setCount(val.toFixed(decimals));
+      } else {
+        setCount(Math.floor(val));
+      }
       if (p < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
-  }, [numeric, duration]);
+  }, [numeric, duration, decimals]);
   return isNaN(numeric) ? target : count;
 }
 

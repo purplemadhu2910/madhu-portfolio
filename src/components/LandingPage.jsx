@@ -2,12 +2,12 @@ import { motion } from 'framer-motion';
 import { FiGithub, FiArrowRight, FiFileText } from 'react-icons/fi';
 import { HiSparkles } from 'react-icons/hi';
 import { SiLeetcode } from 'react-icons/si';
+import { personalInfo } from '../data/profile';
 import profileImg from '../assets/madhu_profile.png';
-import resumePDF from '../assets/mandokar_madhushree_resume.pdf';
 
-const RESUME_URL = resumePDF;
-const GITHUB_URL = 'https://github.com/purplemadhu2910';
-const LEETCODE_URL = 'https://leetcode.com/u/purplemadhu2910/';
+const RESUME_URL = personalInfo.resume.url;
+const GITHUB_URL = personalInfo.socials.github.url;
+const LEETCODE_URL = personalInfo.socials.leetcode.url;
 
 export default function LandingPage({ onEnterPortfolio }) {
   // Stagger container for Framer Motion
@@ -147,7 +147,7 @@ export default function LandingPage({ onEnterPortfolio }) {
                 href={RESUME_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                download="Madhushree_Mandokar_Resume.pdf"
+                download={personalInfo.resume.filename}
                 className="group flex-1 min-w-[140px] bg-white border-2 sm:border-[3px] border-black text-black font-extrabold text-sm sm:text-base px-5 py-3.5 rounded-2xl shadow-[4px_4px_0px_0px_#000] hover:shadow-[7px_7px_0px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-1 active:translate-y-1 active:shadow-[1px_1px_0px_0px_#000] transition-all flex items-center justify-between gap-2"
               >
                 <span className="flex items-center gap-2">

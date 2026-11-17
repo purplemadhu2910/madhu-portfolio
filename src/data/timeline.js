@@ -1,11 +1,11 @@
 export const timelineData = [
   {
-    year: '2023',
+    year: '2023 - Present',
     type: 'education',
-    title: 'Started B.Tech CSE (AI)',
+    title: 'B.Tech CSE (Artificial Intelligence)',
     org: 'Parul University, Vadodara',
-    description: 'Began my journey in Computer Science with a specialization in Artificial Intelligence. Dived deep into programming fundamentals, data structures, and algorithms.',
-    tags: ['Python', 'C', 'Data Structures'],
+    description: 'Pursuing B.Tech Computer Science & Engineering (AI) with a current CGPA of 8.09 / 10. Studying core CS fundamentals, algorithms, machine learning, and neural systems.',
+    tags: ['8.09 CGPA', 'AI Specialization', 'Data Structures', 'Python'],
     color: 'violet',
   },
   {

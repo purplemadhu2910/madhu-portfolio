@@ -34,7 +34,7 @@ export const personalInfo = {
 
   stats: [
     { value: '10+', label: 'Projects Built' },
-    { value: '13+', label: 'Certifications' },
+    { value: '14+', label: 'Certifications' },
     { value: '100+', label: 'LeetCode Problems' },
     { value: '8.09', label: 'B.Tech CGPA (/10)', noPlus: true },
   ],

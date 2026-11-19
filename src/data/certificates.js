@@ -128,6 +128,15 @@ export const certificatesData = [
     domain: 'IoT',
     description: 'Elite certified (70%) in Internet of Things by NPTEL covering IoT architecture, sensor networks, embedded systems, communication protocols, and cloud computing.',
     link: 'https://drive.google.com/file/d/1hmhWn_vVYpgmMpdm11a4frew-Knrmwht/view?usp=drive_link'
+  },
+  {
+    id: 14,
+    title: 'Data Science with Python',
+    issuer: 'Wipro',
+    category: 'AI & ML',
+    domain: 'AI & ML',
+    description: 'Python, Machine Learning, Data Science',
+    link: 'https://drive.google.com/file/d/1sXIhQtFDaup9VYnShGitM-erwzSunquA/view?usp=drive_link'
   }
 ];
 
